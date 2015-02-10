@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <meta name="copyright" content="&copy; 2014 Bradley Alan Smith" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>venturelog</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+    <link href='http://fonts.googleapis.com/css?family=Karma:700,400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.8.1/mustache.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.js"></script>
+    <script src="//cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src="/static/js/lib/topojson.min.js"></script>
+    <script src="/static/js/lib/underscore.js"></script>
+    <script src="/static/js/lib/backbone.js"></script>
+    <script src="/static/js/lib/exif.js"></script>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script type="text/html" id="layout">
+        <div id="header"></div>
+        <div id="navbar"></div>
+        <div id="main"></div>
+        <div id="modalouter" class="hidden"></div>
+    </script>
+    
+    
+    <script type="text/html" id="header_templ">
+        <h1><a href="#home">venturelog</a></h1>
+        <h3>by <a href="http://www.earth-mgmt.com">Earth Management Systems</a></h3>
+        <div id="header-social">
+            <a href="#cv" id="hire">Hire Me!</a>
+            <i class="fa fa-github"></i>
+            <i class="fa fa-reddit"></i>
+            <i class="fa fa-flickr"></i>
+            <i class="fa fa-youtube"></i>
+            <i class="fa fa-twitter"></i>
+        </div>
+        </script>
+
+        <script type="text/html" id="navbar_templ">
+        <h1 id="navtitle" class="hidden"><a href="#home">venturelog</a></h1>
+        {{#.}}
+        <span><a href="#{{.}}">{{.}}</a><span> | </span></span>
+        {{/.}}
+        <div id="navbar-social" class="hidden">
+            <i class="fa fa-github"></i>
+            <i class="fa fa-reddit"></i>
+            <i class="fa fa-flickr"></i>
+            <i class="fa fa-youtube"></i>
+            <i class="fa fa-twitter"></i>
+        </div>
+    </script>
+    
+    <script type="text/html" id="home_templ">
+        <div class="cropcont">
+            <a href="#photo/{{title}}"><img class="" src="{{image}}"></img></a>
+        </div>
+        <div class="photocaption pure-g">
+            <div class="pure-u-1">
+                <a href="#photo/{{title}}">
+                    <span>
+                        <b>{{title}}</b> <br />
+                        by <i>{{author}}</i>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <h1>What'<span style="display:none;">'</span> new in venturelog?</h1>
+        <div id="items"></div>
+    </script>
+    
+    <script type="text/html" id="modal_templ">
+        <div id="modalback"></div>
+        <div id="modal"></div>
+    </script>
+
+    <script type="text/html" id="modal_input_templ">
+        <div id="modalback"></div>
+        <div id="modal">
+            <form id="modalform" class="pure-form pure-form-stacked">             
+                <fieldset>
+                    <legend class="n">Location Name: </legend>
+                    <input id="alerttitle" class="pure-input-1"></input>
+                    <a class="pure-button" id="createalert">Create Alert</a>
+                </fieldset>
+            </form>
+        </div>
+    </script>
+    
+    <script type="text/html" id="map_templ">
+        <div id="map"></div>
+    </script>
+        
+    <script type="text/html" id="items_templ">
+        <div class="pure-g items">
+            <div class="pure-u-1 pure-u-lg-1-5"></div>
+            <div class=" pure-u-1  pure-u-lg-3-5">
+                {{#.}}
+                <a href="#{{itemType}}/{{title}}">
+                    <div class="newitem">
+                        <img src="{{thumb}}"></img>
+                        <div>
+                            <h3>{{title}}</h3>
+                            By <i>{{author}}</i><br />
+                            <span>{{tag}}</span>
+                        </div>
+                    </div>
+                </a>
+                {{/.}}
+            </div>
+            <div class="pure-u-1 pure-u-lg-1-5"></div>
+        </div>
+    </script>
+    
+    <script type="text/html" id="logitem_templ">
+        <div id="logitem" class="pure-g">
+            <div class="pure-u-1 pure-u-lg-1-5"></div>
+            <div class=" pure-u-1  pure-u-lg-3-5">
+                <img src="{{thumb}}" class="itemthumb"></img>
+                <h2>{{title}}</h2>
+                <div>{{tag}}</div>
+                <div class="byline">By <a href="#cv" class="byline">{{author}}</a></div>
+                <br />
+                {{body}}
+            </div>
+            <div class="pure-u-1 pure-u-lg-1-5"></div>
+            </div>
+        </div>
+    </script>
+    
+    <script type="text/html" id="stop_templ">
+        <div id="logitem" class="pure-g">
+            <div class="pure-u-1 pure-u-lg-1-5"></div>
+            <div class=" pure-u-1  pure-u-lg-3-5">
+                <img src="{{thumb}}" class="itemthumb"></img>
+                <h2>{{title}}</h2>
+                <div>{{tag}}</div>
+                <div class="byline">{{status}}</div>
+                <br />
+                {{body}}
+            </div>
+            <div class="pure-u-1 pure-u-lg-1-5"></div>
+            </div>
+        </div>
+    </script>
+    
+    <script type="text/html" id="photo_templ">
+    <div id="photos">
+        <div class="featurecont">
+            <img id="featureimage" src="{{image}}"></img>
+        </div>
+        <div class="prev"><a href="#photo/{{prev}}"><i class="fa fa-chevron-circle-left"></i></a></div>
+        <div class="next"><a href="#photo/{{next}}"><i class="fa fa-chevron-circle-right"></i></a></div>
+    </div>
+    </script>
+    
+    <script type="text/html" id="photos_templ">
+    <div id="photos">
+        <div class="featurecont">
+            <img class="" src="{{image}}"></img>
+        </div>
+        <div class="prev"><i class="fa fa-chevron-circle-left"></i></div>
+        <div class="next"><i class="fa fa-chevron-circle-right"></i></div>
+    </div>
+    </script>
+
+    <script type="text/javascript">
+
+var scrollock = false;
+
+var Stop = Backbone.Model.extend({
+    defaults: {
+        title: 'Phoenix',
+        tag: 'Rising from the ashes in the valley of the sun',
+        image: '/static/img/01.jpg',
+        itemType: 'stop',
+        location: {
+            lat: 33.45,
+            lon: -112.066
+        }
+    },
+    idAttribute: 'title'
+});
+
+var Item = Backbone.Model.extend({
+    defaults: {
+        title: 'foo',
+        tag: 'all the foo you can shake a stick at',
+        author: 'herr annkoulter',
+        image: '/static/img/01.jpg',
+        thumb: '/static/img/thumb.jpg',
+        itemType: 'item'
+    },
+    idAttribute: 'title'
+});
+
+var Photo = Item.extend({
+    defaults: _.extend({},Item.prototype.defaults,
+        {itemType: 'photo'}
+    )
+});
+
+var Stops = Backbone.Collection.extend({
+    model: Stop,
+    url: '/stops.json',
+    segments: function () {
+        var segs = [];
+        for (var i = 0; i < this.length; i++) {
+            segs.push
+        };
+    },
+});
+
+var Items = Backbone.Collection.extend({
+    model: Item,
+    url: '/items.json'
+});
+
+var Photos = Backbone.Collection.extend({
+    model: Photo,
+    url: '/photos.json'
+});
+
+var stops = new Stops();
+var items = new Items();
+var photos = new Photos();
+
+var BaseView = Backbone.View.extend({
+    initialize: function(){
+        this.render();
+    },
+    data: null,
+    render: function () {
+        if (this.data) {
+            try {
+                this.$el.html(Mustache.to_html(this.template,this.data.toJSON()));
+            } catch (e) {
+                this.$el.html(Mustache.to_html(this.template,this.data));
+            }
+        }
+        else this.$el.html(this.template);
+        return this;
+    }
+});
+
+var segments = [];
+var AppView = Backbone.View.extend({
+    el: '#container',
+    template: $("#layout").html(),
+    initialize: function() {
+        stops.fetch({
+            success: function (d) {
+                var last;
+                d.each(function(stop) {
+                    if (!last) last = stop;
+                    else {
+                        segments.push([last.get('location'),stop.get('location')]);
+                        last = stop;
+                    }
+                });
+                stops.initialized = true;
+            },
+            failure: function(e) {
+                alert(e);
+            }
+        });
+        photos.fetch({
+            success: function (d) {
+                photos.initialized = true;
+            }
+        });
+        items.fetch({
+            success: function (d) {
+                items.initialized = true;
+                new HomeView();
+            }
+        });
+        MainView.prototype.initialize.call(this);
+        new HeaderView();
+        new NavbarView();
+    },
+    toggleHeader: function (scrollTop) {
+        if (this.header_hidden) return;
+        if (!scrollTop) {
+            d3.select('#header').classed('hidden',false);
+            d3.select('#navtitle').classed('hidden',true);
+            d3.select('#navbar-social').classed('hidden',true);
+            d3.select('#navbar').classed('scrolled',false);
+            d3.select('#main').classed('scrolled',false);
+            d3.selectAll('.photocaption').classed('hidden',false);
+            return;
+        }
+        
+        d3.select('#header').classed('hidden',true)
+        d3.select('#navtitle').classed('hidden',false);
+        d3.select('#navbar-social').classed('hidden',false);
+        d3.select('#navbar').classed('scrolled',true)
+        d3.select('#main').classed('scrolled',true)
+        d3.selectAll('.photocaption').classed('hidden',true);
+        this.header_hidden = true;
+    },
+    render: function() {
+        this.$el.html(this.template);
+        var toggleHeader = this.toggleHeader;
+        toggleHeader($(this).scrollTop()) //Outside this el, scroll doens't bubble
+        d3.select('#main').on('scroll',function () {
+            toggleHeader($(this).scrollTop())
+        });
+        return this;
+    }
+});
+
+var HeaderView = BaseView.extend({
+    el: '#header',
+    template: $("#header_templ").html()
+});
+
+var NavbarView = BaseView.extend({
+    el: '#navbar',
+    template: $("#navbar_templ").html(),
+    render: function(){
+        this.data = ['venturemap','travelog','photos'];
+        MainView.prototype.render.call(this);
+        return this;
+    }
+});
+
+var MainView = BaseView.extend({
+    el: '#main'
+});
+
+var HomeView = MainView.extend({
+    template: $("#home_templ").html(),
+    render: function(){
+        this.data = items.first();
+        MainView.prototype.render.call(this);
+        new ItemsSubview();
+        return this;
+    }
+});
+
+var MapState = Backbone.Model.extend({
+    defaults: {
+        mapCenter: [18, 180],
+        mapZoom: 3
+    }
+});
+
+MapState = new MapState();
+
+var MapView = MainView.extend({
+    template: $("#map_templ").html(),
+    map: null,
+    settings: {},
+    set_state: function (e) {
+        MapState.set('mapCenter', this.map.getCenter());
+        MapState.set('mapZoom', this.map.getZoom());
+    },
+    initialize: function () {
+        base.toggleHeader(true);
+        MainView.prototype.initialize.call(this);
+    },
+    render: function(){
+        this.$el.html(this.template);
+        var mapCenter = MapState.get('mapCenter');
+        var mapZoom = MapState.get('mapZoom');
+        this.map = L.map(
+            'map', this.settings
+        ).setView(mapCenter, mapZoom);
+        
+        underlay = L.tileLayer(
+            'https://otile1-s.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png'
+        ).addTo(this.map);
+        
+        var self = this;
+        this.map.on('dragend', function (e) {
+            self.set_state(e);
+        });
+        return this;
+    }
+});
+
+var CollectionMapView = MapView.extend({
+    render: function() {
+        MapView.prototype.render.call(this);
+        var map = this.map;
+        stops.toArray().reverse().forEach(function (item) {
+            var marker = L.marker(item.get('location'))
+                .on('click',function (e) {
+                    router.loadItem(item)
+                }).addTo(map);
+        });
+        segments.reverse().forEach(function (seg) {
+            var pointList = [];
+            seg.forEach(function(loc) {
+                var lat = loc['lat'],
+                    lon = loc['lon']
+                pointList.push([lat,lon])
+            });
+            
+            L.polyline(pointList, {
+                color: 'red',
+                weight: 3,
+                opacity: 0.5,
+                smoothFactor: 1
+            }).addTo(map);
+        });
+        return this;
+    }
+});
+
+var AddPointMapView = MapView.extend({
+    render: function () {
+        MapView.prototype.render.call(this);
+        var map = this.map;
+        map.on('click',function (e){
+            L.marker(e.latlng).addTo(map);
+            new ModalInputView(e.latlng);
+        });
+    }
+});
+
+var MapSubview = MapView.extend({
+    el: '#submap',
+    initialize: function (title) {
+        var item = items.get(title)
+        MapState.set('mapCenter', item.get('location'));
+        MapState.set('mapZoom', 6);
+        MapView.prototype.initialize.call(this);
+        L.marker(item.get('location')).addTo(this.map);
+    }
+});
+
+var ModalView = BaseView.extend({
+    el: '#modalouter',
+    template: $("#modal_templ").html(),
+    render: function () {
+        d3.select('#modalouter').classed('hidden',false)
+        this.$el.html(Mustache.to_html(this.template,{}));
+    }
+});
+
+var ModalInputView = ModalView.extend({
+    template: $("#modal_input_templ").html(),
+    latlng: null,
+    submit: function (e) {
+        items.add({
+            title: d3.select('input').node().value,
+            location: this.latlng
+        });
+        items.sync();
+        d3.select(this.el).classed('hidden',true);
+    },
+    initialize: function (latlng) {
+        this.latlng = latlng;
+        ModalView.prototype.initialize.call(this);
+    },
+    render: function () {
+        ModalView.prototype.render.call(this);
+        var self = this,
+            el = this.el,
+            latlng = this.latlng;
+        $("form").bind("keypress", function (e) {
+            if (e.keyCode == 13) {
+                e.preventDefault();
+                self.submit();
+            }
+        });
+        $("#alerttitle").submit(function () {
+            self.submit();
+        });
+        document.getElementById('alerttitle').focus();
+        
+        d3.select(el).select('a.pure-button').on('click', function () {
+            self.submit();
+        });
+    }
+});
+
+var ItemView = MainView.extend({
+    template: $("#logitem_templ").html(),
+    initialize: function (title) {
+        this.title = title;
+        MainView.prototype.initialize.call(this);
+    },
+    render: function(){
+        this.data = items.get(this.title);
+        MainView.prototype.render.call(this);
+        return this;
+    }
+});
+
+var ItemsView = MainView.extend({
+    template: $("#items_templ").html(),
+    render: function(){
+        this.data = itemlist();
+        MainView.prototype.render.call(this);
+        return this;
+    }
+});
+
+var ItemsSubview = ItemsView.extend({
+    el: '#items'
+});
+
+var StopView = MainView.extend({
+    template: $("#stop_templ").html(),
+    initialize: function(title) {
+        this.title = title;
+        MainView.prototype.initialize.call(this);
+    },
+    render: function () {
+        this.data = stops.get(this.title);
+        MainView.prototype.render.call(this);
+        return this;
+    }
+});
+
+var ExifSubview = BaseView.extend({
+    el: '#exif',
+    template: $("#exif_templ").html(),
+    initialize: function (exifdata) {
+        this.data = exifdata;
+        console.log(this.data);
+    }
+});
+
+var PhotosView = MainView.extend({
+    template: $("#photo_templ").html(),
+    initialize: function (title) {
+        base.toggleHeader(true);
+        this.title = title;
+        MainView.prototype.initialize.call(this);
+    },
+    render: function(){
+        this.data = photos.first();
+        MainView.prototype.render.call(this);
+        $("#featureimage").load(function() {
+            EXIF.getData(this, function() {
+                new ExifSubview(EXIF.pretty(this));
+            });
+        });
+        return this;
+    }
+});
+
+var PhotoView = MainView.extend({
+    template: $("#photo_templ").html(),
+    initialize: function (title) {
+        base.toggleHeader(true);
+        this.title = title;
+        MainView.prototype.initialize.call(this);
+    },
+    render: function () {
+        this.data = items.get(this.title);
+        MainView.prototype.render.call(this);
+        return this;
+    }
+});
+
+function itemlist () {
+    var retVal = [];
+    items.models.forEach(function (d) {
+        retVal.push(d.toJSON());
+    });
+    return retVal;
+};
+
+var CreateView = AddPointMapView;
+
+var AppRouter = Backbone.Router.extend({
+    routes: {
+        "home":"home",
+        "venturemap":"venturemap",
+        "travelog":"travelog",
+        "logitem/:title":"logitem",
+        "item/:title": "logitem",
+        "photo/:title":"photo",
+        "photos":"photos",
+        "words":"words",
+        "stop/:title":"stop",
+        "create":"create"
+    },
+    loadView: function(view,params,coll) {
+        var load = function () {
+            $('#main').empty()
+            this.view = new view(params);
+        };
+        if (!coll.initialized) {
+            coll.fetch({
+                success: function (d) {
+                    coll.initialized = true;
+                    load(view);
+                }
+            });
+        } else {
+            load(view);
+        }
+    },
+    loadItem: function(item) {
+        router.navigate('#'+item.get('itemType')+'/'+item.get('title'), true);
+    },
+    hashChange : function(evt) {
+        if(this.cancelNavigate) { // cancel out if just reverting the URL
+            evt.stopImmediatePropagation();
+            this.cancelNavigate = false;
+            return;
+        }
+        if(this.view && this.view.dirty) {
+            var dialog = confirm("You have unsaved changes. To stay on the page, press cancel. To discard changes and leave the page, press OK");
+            if(dialog == true)
+                return;
+            else {
+                evt.stopImmediatePropagation();
+                this.cancelNavigate = true;
+                window.location.href = evt.originalEvent.oldURL;
+            }
+        }
+    },
+    home: function () {
+        this.loadView(HomeView,null,items);
+    },
+    venturemap: function () {
+        this.loadView(CollectionMapView,null,items);
+    },
+    travelog: function (params) {
+        this.loadView(ItemsView,params,items);
+    },
+    logitem: function (params) {
+        this.loadView(ItemView,params,items);
+    },
+    stop: function (params) {
+        console.log(params);
+        this.loadView(StopView,params,stops);
+    },
+    photos: function () {
+        this.loadView(PhotosView,photos,photos);
+    },
+    photo: function (params) {
+        this.loadView(PhotoView,params,photos)
+    }
+});
+
+var router = new AppRouter();
+var base = new AppView();
+$(window).on("hashchange", router.hashChange);
+Backbone.history.start();
+
+    </script>
+</body>

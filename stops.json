@@ -1,0 +1,288 @@
+[
+   {
+      "title":"Phoenix",
+      "tag":"Rising from the ashes in the valley of the sun",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/01.jpg",
+      "location":{
+         "lat":33.45,
+         "lon":248.066
+      }
+   },
+   {
+      "title":"LAX",
+      "tag":"The world's worst airport in the world's worst city",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/02.jpg",
+      "location":{
+         "lat":33.9425,
+         "lon":242.408056
+      }
+   },
+   {
+      "title":"ICN",
+      "tag":"Freedom so close to tyranny.",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/03.jpg",
+      "location":{
+         "lat":37.463333,
+         "lon":126.44
+      }
+   },
+   {
+      "title":"Hanoi",
+      "tag":"The Paris of the East and an historic capital city",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/04.jpg",
+      "location":{
+         "lat":21.033333,
+         "lon":105.85
+      }
+   },
+   {
+      "title":"Da Nang",
+      "tag":"Newly developed beach-front resort town and port city",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":16.066667,
+         "lon":108.233333
+      }
+   },
+   {
+      "title":"Hoi An",
+      "tag":"Venice of Viet Nam, a world heritage site",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":15.883333,
+         "lon":108.333333
+      }
+   },
+   {
+      "title":"DAD",
+      "tag":"Da Nang Airport, JetStar away!",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":16.043889,
+         "lon":108.199444
+      }
+   },
+   {
+      "title":"HCMC (Saigon)",
+      "tag":"A city undecided on its name, in time for Tet",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":10.769444,
+         "lon":106.681944
+      }
+   },
+   {
+      "title":"Phnom Penh",
+      "tag":"Capital of Cambodia in the land of rivers",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":11.55,
+         "lon":104.916667
+      }
+   },
+   {
+      "title":"Siem Reap",
+      "tag":"Gateway to the ancient city of Angkor Wat",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":13.362222,
+         "lon":103.859722
+      }
+   },
+   {
+      "title":"Bangkok",
+      "tag":"The crossroads of Southeast Asia",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":13.75,
+         "lon":100.466667
+      }
+   },
+   {
+      "title":"Vientiane",
+      "tag":"Even the capital is quaint in Laos",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":17.966667,
+         "lon":102.6
+      }
+   },
+   {
+      "title":"Vang Vieng",
+      "tag":"Karst landscapes, 'nuff said",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":18.933333,
+         "lon":102.45
+      }
+   },
+   {
+      "title":"Luang Prabang",
+      "tag":"Ancient capital in the hills of the Mekong River",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":19.883333,
+         "lon":102.133333
+      }
+   },
+   {
+      "title":"Vientiane Again",
+      "tag":"Back through",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":17.966667,
+         "lon":102.6
+      }
+   },
+   {
+      "title":"Bangkok Again",
+      "tag":"Back in the crossroads",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":13.75,
+         "lon":100.466667
+      }
+   },
+   {
+      "title":"Krabi",
+      "tag":"Andaman Sea and Limestone cliffs with fewer drunks than Phuket",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":8.059167,
+         "lon":98.918889
+      }
+   },
+   {
+      "title":"Trang",
+      "tag":"Ridin that train",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":7.5575,
+         "lon":99.610278
+      }
+   },
+   {
+      "title":"Butterworth",
+      "tag":"Crossroads of culture in Penang",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":5.416667,
+         "lon":100.4
+      }
+   },
+   {
+      "title":"George Town",
+      "tag":"Get to the islands, mon",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":5.416667,
+         "lon":100.316667
+      }
+   },
+   {
+      "title":"Butterworth Train Station",
+      "tag":"Back to the arterial",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":5.416667,
+         "lon":100.4
+      }
+   },
+   {
+      "title":"Kuala Lumpur",
+      "tag":"A city rises from the jungle",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":3.1475,
+         "lon":101.693333
+      }
+   },
+   {
+      "title":"Singapore",
+      "tag":"The garden city, oh so close to the equator",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":1.283333,
+         "lon":103.833333
+      }
+   },
+   {
+      "title":"ICN Return",
+      "tag":"Back through headed home",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":37.463333,
+         "lon":126.44
+      }
+   },
+   {
+      "title":"LAX Return",
+      "tag":"The world's worst airport in the world's worst city",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/02.jpg",
+      "location":{
+         "lat":33.9425,
+         "lon":242.408056
+      }
+   },
+   {
+      "title":"Phoenix Home Again",
+      "tag":"It'll probably already be hot",
+      "status":"planned",
+      "itemType":"stop",
+      "image":"/static/img/05.jpg",
+      "location":{
+         "lat":33.45,
+         "lon":248.066
+      }
+   }
+]

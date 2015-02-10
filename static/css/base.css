@@ -1,0 +1,354 @@
+
+@import url("http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css");
+
+@import url("./base-small-prt.css") (max-width : 1024px) and (orientation:portrait);
+@import url("./base-small-lnd.css") (max-width : 1024px) and (orientation:landscape);
+@import url("./base-large.css") (min-width : 1025px);
+
+body {
+    font-family: 'Karma', serif;
+    color: #969696;
+    background: white;
+    overflow: hidden;
+}
+
+a {
+    color: #969696;
+    text-decoration: none;
+}
+
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+    font-family: 'Karma', serif;
+}
+
+#header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: rgba(0,0,0,0.8);
+    padding-left: 1em;
+    vertical-align: middle;
+    z-index: 10;
+}
+
+.hidden {
+    display: none;
+}
+
+#modalouter {
+    background: rgba(0,0,0,0.8);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+#modalback {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+#modal {
+    position: absolute;
+    background: lightgray;
+    top: 30%;
+    bottom: 30%;
+    right: 30%;
+    left: 30%;
+    padding: 2em;
+    border-radius: 2em;
+}
+
+#header > h1 {
+    float: left;
+}
+
+#header > h1 > a:hover {
+    color: white;
+}
+
+#header-social {
+    float: right;
+    font-size: 175%;
+}
+
+#hire {
+    display: none;
+}
+
+#navbar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding-left: 1em;
+    background: rgba(0,0,0,0.7);
+    z-index: 10;
+}
+
+#navtitle {
+    margin-right: 1em;
+    color: white;
+}
+
+#navtitle.hidden {
+    display: none;
+}
+
+#navbar.scrolled {
+    background: rgba(0,0,0,0.5);
+    top: 0;
+}
+
+#navbar.scrolled a {
+    color: white;
+}
+
+#navbar.scrolled span {
+    color: white;
+}
+
+#navbar-social {
+    float: right;
+    padding-right: 1em;
+    font-size: 125%;
+    color: white;
+}
+
+#navbar-social i {
+    margin-right: 0.5em;
+}
+
+#header h1 {
+    margin: 0;
+    cursor: pointer;
+}
+
+#header h1:hover {
+    color: white;
+}
+
+#navbar > span {
+    vertical-align: middle;
+}
+
+#navbar > span:last-of-type > span {
+    display: none;
+}
+
+#navbar > span > a:hover {
+    color: white;
+}
+
+#navbar > span > span {
+    color: #969696;
+}
+
+i.fa-youtube:hover {
+    color: #DF2826;
+}
+
+i.fa-flickr:hover {
+    color: #FF1981;
+}
+
+i.fa-twitter:hover {
+    color: #55ACEE;
+}
+
+i.fa-reddit:hover {
+    color: #CEE3F8;
+}
+
+i.fa-github:hover {
+    color: #829AA8;
+}
+
+#main {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    color: #4F4F4F;
+}
+
+#main > h1 {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+#items > div.items {
+    margin-top: 0;
+    margin-bottom: 3em;
+}
+
+.newitem {
+    width: 100%;
+    vertical-align: middle;
+    overflow: hidden;
+    background: rgba(0,0,0,0.1);
+}
+
+.newitem:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.newitem h3 {
+    margin: 0;
+    margin-top: 0.25em;
+}
+
+.newitem > img {
+    float: left;
+    margin-right: 1em;
+}
+
+a.byline:hover {
+    color: #3C3C3C;
+}
+
+.logitem {
+    width: 100%;
+    vertical-align: middle;
+    overflow: hidden;
+    background: rgba(0,0,0,0.1);
+}
+
+.logitem:hover {
+    background: rgba(0,0,0,0.05);
+}
+
+.logitem > span {
+    float: left;
+    padding: 1em;
+}
+
+.logitem > img {
+    float: left;
+}
+
+img.itemthumb {
+    float: left;
+    margin: 1em;
+    margin-left: 0;
+}
+
+#home {
+    margin-bottom: 2em;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+#map .background {
+  fill: none;
+  pointer-events: all;
+}
+
+#states {
+  fill: #aaa;
+}
+
+#states .active {
+  fill: orange;
+}
+
+#state-borders {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+#logouter {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    z-index: -10;
+}
+
+#logitem {
+    padding: 1em;
+    padding-top: 3em;
+}
+
+#logitem h2 {
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+}
+
+#logitem div.byline {
+    font-style: italic;
+}
+
+#photos {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: #1A1A1A;
+}
+
+.cropcont {
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.cropcont img {
+    max-width: 100%;
+    transform: translateY(-50%);
+}
+
+.featurecont {
+    width: 100%;
+    height: 100%;
+}
+
+.featurecont img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.fa {
+    cursor: pointer;
+}
+
+div.next {
+    position: absolute;
+    top: 48%;
+    right: 3%;
+    font-size: 400%;
+    color: darkgray;
+    opacity: 0.7;
+}
+
+.fa-chevron-circle-left:hover {
+    color: white;
+}
+
+div.prev {
+    position: absolute;
+    top: 48%;
+    left: 3%;
+    font-size: 400%;
+    color: darkgray;
+    opacity: 0.7;
+}
+
+.fa-chevron-circle-right:hover {
+    color: white;
+}

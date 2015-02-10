@@ -1,0 +1,75 @@
+[
+   {
+      "title":"foo",
+      "tag":"all the foo you can shake a stick at",
+      "itemType":"logitem",
+      "author":"herr annkoulter",
+      "thumb":"/static/img/thumb.jpg",
+      "image":"/static/img/01.jpg",
+      "prev":"foo",
+      "next":"bar",
+      "location":{
+         "lat":18,
+         "lon":104
+      }
+   },
+   {
+      "title":"bar",
+      "tag":"all the bar worth fooing",
+      "itemType":"logitem",
+      "author":"frau geblinka",
+      "thumb":"/static/img/thumb1.jpg",
+      "image":"/static/img/02.jpg",
+      "body":"lorem bipsum dry rub garlic spices beating hearts.  upon the upper twilight pondered a small rivulet meandering.",
+      "prev":"foo",
+      "next":"baz",
+      "location":{
+         "lat":17,
+         "lon":104
+      }
+   },
+   {
+      "title":"baz",
+      "tag":"no baz that ever was",
+      "itemType":"logitem",
+      "author":"frau huttkuttfrrr",
+      "thumb":"/static/img/thumb0.jpg",
+      "image":"/static/img/03.jpg",
+      "body":"lorem bipsum dry rub garlic spices beating hearts.  upon the upper twilight pondered a small rivulet meandering.",
+      "prev":"bar",
+      "next":"gringo",
+      "location":{
+         "lat":17,
+         "lon":106
+      }
+   },
+   {
+      "title":"gringo",
+      "tag":"the old friend of the devil",
+      "author":"Jeremy Clarkson",
+      "itemType":"logitem",
+      "image":"/static/img/04.jpg",
+      "thumb":"/static/img/thumb.jpg",
+      "prev":"baz",
+      "next":"blastnasty",
+      "location":{
+         "lat":19,
+         "lon":104
+      }
+   },
+   {
+      "title":"blastnasty",
+      "tag":"the most serious game of reindeer",
+      "author":"Mother Theresa",
+      "itemType":"logitem",
+      "thumb":"/static/img/thumb0.jpg",
+      "image":"/static/img/05.jpg",
+      "body":"lorem bipsum dry rub garlic spices beating hearts.  upon the upper twilight pondered a small rivulet meandering.",
+      "prev":"gringo",
+      "next":"blastnasty",
+      "location":{
+         "lat":19,
+         "lon":102
+      }
+   }
+]
